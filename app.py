@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from models import Artist, Album, Song, db
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///music.db'
@@ -7,7 +8,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # связываем приложение и экземпляр SQLAlchemy
 db.init_app(app)
-
+migrate = Migrate(app, db)
 
 @app.route('/')
 def songs():
